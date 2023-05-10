@@ -1,4 +1,5 @@
 const swaggerJsDoc = require("swagger-jsdoc");
+const path = require('path');
 
 module.exports = swaggerJsDoc({
     definition: {
@@ -14,5 +15,5 @@ module.exports = swaggerJsDoc({
               },
           ],
       },
-      apis: ["../user/*.js"],
+      apis: [path.join(__dirname, "..", "user", "*.js")],
   })

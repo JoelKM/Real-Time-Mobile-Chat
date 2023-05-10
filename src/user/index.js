@@ -33,7 +33,6 @@ const controller = require('./controller');
   *   description: The users using the app
   */
 
-
 /**
  * @swagger
  * /user:
