@@ -1,10 +1,12 @@
 const service = require('./service');
+const respond = require('../common/response-format');
 
 module.exports = {
     new: async (req, res, next) => {
         try {
-            let user = req.body;
-            //TO DO: LOGIC AND RES
+            const user = req.body;
+            const data = await service.registerUser(user);
+            respond(res, true, 201, {data})
         } catch (error) {
             next(error);
         }
@@ -13,7 +15,7 @@ module.exports = {
         try {
             const credentials = req.body;
             const data = await loginUser(credentials);
-            //TO DO: RES
+            respond(res, true, 200, {data})
         } catch (error) {
             next(error)
         }
@@ -27,8 +29,8 @@ module.exports = {
     getSingle: async (req, res, next) => {
         try {
             const userId = req.params.id;
-            const user = await service.retrieveUser(userId);
-            //TO DO: RES
+            const data = await service.retrieveUser(userId);
+            respond(res, true, 200, {data})
         } catch (error) {
             next(error);
         }
