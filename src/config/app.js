@@ -1,9 +1,14 @@
 const express = require("express");
+const swaggerUI = require("swagger-ui-express");
+
+const swaggerSpecs = require('./documentation-specs');
 
 const handleError = require('./error-handler');
 const AppError = require("../common/app-error");
 
 const app = express();
+
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
