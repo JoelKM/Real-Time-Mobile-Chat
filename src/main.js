@@ -15,3 +15,6 @@ async function startServer() {
 
 startServer();
 
+setInterval(() => {
+    console.log("Still up");
+}, 720000)
