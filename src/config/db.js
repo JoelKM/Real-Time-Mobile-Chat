@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports = async (mongoUrl) => {
+    /*
     mongoose.connection.once('open', () => {
         console.log('Succesful connection to DB');
     });
@@ -9,5 +10,6 @@ module.exports = async (mongoUrl) => {
         console.error(`Failed connection to DB: ${error}`);
     })
     
-    await mongoose.connect(mongoUrl)
+    await mongoose.connect(mongoUrl);
+    */
 }
