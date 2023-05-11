@@ -12,7 +12,7 @@ module.exports = {
     },
     // TO - DO: NO USE
     loginUser: async (data) => {
-
+        
     },
     retrieveUser: async (userId) => {
         return await fetchUserBy("id", userId)
