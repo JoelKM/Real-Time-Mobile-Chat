@@ -31,5 +31,8 @@ module.exports = {
         return await db.create({
             ...data
         });
+    },
+    update: async (userId, data) => {
+        return await db.findByIdAndUpdate(userId, ...data, {returnDocument:'after'})
     }
 }
