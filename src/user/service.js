@@ -25,6 +25,6 @@ module.exports = {
         return createToken(credentials);
     },
     retrieveUser: async (userId) => {
-        return await fetchUserBy("id", userId)
+        return await fetchUserBy("id", userId);
     },
 }
