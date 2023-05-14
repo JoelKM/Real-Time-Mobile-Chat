@@ -4,7 +4,7 @@ const { fetchUserBy } = require('../user/model');
 
 module.exports = {
     createToken: async (payload) => {
-        return jwt.sign(payload, process.env.JWT_SECRET);
+        return jwt.sign({...payload}, process.env.JWT_SECRET);
     },
     checkToken: async (req, res, next) => {
         try {

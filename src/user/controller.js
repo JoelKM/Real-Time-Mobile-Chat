@@ -6,7 +6,7 @@ module.exports = {
         try {
             const user = req.body;
             const data = await service.registerUser(user);
-            respond(res, true, 201, {data})
+            respond(res, true, 201, {...data})
         } catch (error) {
             next(error);
         }
@@ -14,8 +14,8 @@ module.exports = {
     login : async (req, res, next) => {
         try {
             const credentials = req.body;
-            const data = await loginUser(credentials);
-            respond(res, true, 200, {data})
+            const data = await service.loginUser(credentials);
+            respond(res, true, 200, {...data})
         } catch (error) {
             next(error)
         }
@@ -30,7 +30,7 @@ module.exports = {
         try {
             const userId = req.params.id;
             const data = await service.retrieveUser(userId);
-            respond(res, true, 200, {data})
+            respond(res, true, 200, {...data})
         } catch (error) {
             next(error);
         }

@@ -7,9 +7,9 @@ module.exports = {
     registerUser: async (data) => {
         data.password = await encryptPassword(data.password)
         if(!data.password) throw new AppError(400, "Error encrypting password");
-        const user = await newUser(data);
-        if(!user) throw new AppError(400, "User was not created");
-        return user
+        const userInfo = await newUser(data);
+        if(!userInfo) throw new AppError(400, "User was not created");
+        return {userInfo}
     },
     loginUser: async (credentials) => {
         const user = await fetchUserBy("email", credentials.email);
@@ -21,10 +21,12 @@ module.exports = {
         if(user == credentials) {
             throw new AppError(400, "Unexpected login error, please try again")
         }
-        
-        return createToken(credentials);
+        const token = await createToken(credentials);
+        const userInfo = credentials;
+        return {userInfo, token};
     },
     retrieveUser: async (userId) => {
-        return await fetchUserBy("id", userId);
+        const userInfo = await fetchUserBy("id", userId);
+        return {userInfo}
     },
 }

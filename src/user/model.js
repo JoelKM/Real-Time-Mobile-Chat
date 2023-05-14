@@ -33,6 +33,6 @@ module.exports = {
         });
     },
     update: async (userId, data) => {
-        return await db.findByIdAndUpdate(userId, ...data, {returnDocument:'after'})
+        return await db.findByIdAndUpdate(userId, {...data}, {returnDocument:'after'})
     }
 }

@@ -21,9 +21,8 @@ const controller = require('./controller');
  *           type: string
  *           description: The user password
  *       example:
- *         id: 1
  *         email: joelserie4@gmail.com
- *         password: jxjnjx36hgdg
+ *         password: password
  */
 
 /**
@@ -35,7 +34,7 @@ const controller = require('./controller');
 
 /**
  * @swagger
- * /user:
+ * /user/register:
  *   post:
  *     summary: Create a new user
  *     tags: [User]
@@ -44,20 +43,42 @@ const controller = require('./controller');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/user'
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: The user was successfully created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/user'
+ *               $ref: '#/components/schemas/User'
  *       500:
  *         description: Some server error
  */
 
-
 router.post('/register', controller.new);
+
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: Login user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: The user was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Some server error
+ */
 
 router.post("/login", controller.login);
 
