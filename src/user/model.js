@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
-    email: String,
+    phone: String,
     password: String
 });
 
@@ -13,8 +13,8 @@ module.exports = {
     fetchUserBy: async (field, value) => {
         let user
         switch (field) {
-            case 'email':
-                user = await db.findOne({email: value});
+            case 'phone':
+                user = await db.findOne({phone: value});
                 if(user == null) return false;
                 break;
             case 'id':
