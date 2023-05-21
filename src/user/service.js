@@ -17,8 +17,8 @@ module.exports = {
         }
     },
     authUser: async (credentials) => {
-        const user = await User.findOne({ email });
-        if(user && await user.matchesPassword(credentials.password)) {
+        const user = await User.findOne({ email: credentials.email });
+        if(user && await user.matchesPassword(credentials.password, user.password)) {
             throw new AppError(403, "Invalid email or password")
         }
 

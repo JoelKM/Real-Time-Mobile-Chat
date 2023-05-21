@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: { type: "String", required: true },
@@ -13,8 +14,8 @@ const userSchema = new mongoose.Schema({
     { timestaps: true }
 );
 
-userSchema.methods.matchesPassword = async (storedPassword) => {
-    return await bcrypt.compare(storedPassword, this.password);
+userSchema.methods.matchesPassword = async (sentPassword, truePassword) => {
+    return await bcrypt.compare(sentPassword, truePassword);
 };
   
 userSchema.pre("save", async (next) => {
