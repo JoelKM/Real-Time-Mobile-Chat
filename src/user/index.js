@@ -24,6 +24,7 @@ const { userValidationSchema } = require('../schemas/user-schemas');
  *           description: The user password
  *       example:
  *         email: joelserie4@gmail.com
+ *         name: Charlie
  *         password: password
  */
 
