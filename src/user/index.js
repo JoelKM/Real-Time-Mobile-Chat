@@ -8,20 +8,20 @@ const controller = require('./controller');
  *     User:
  *       type: object
  *       required:
- *         - phone
+ *         - email
  *         - password
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id of the user
- *         phone:
+ *         email:
  *           type: string
- *           description: The user phone
+ *           description: The user email
  *         password:
  *           type: string
  *           description: The user password
  *       example:
- *         phone: joelserie4@gmail.com
+ *         email: joelserie4@gmail.com
  *         password: password
  */
 

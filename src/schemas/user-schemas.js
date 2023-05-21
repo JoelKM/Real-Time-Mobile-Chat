@@ -1,7 +1,8 @@
 const Joi = require("joi");
 
 const eventValidationSchema = Joi.object({
-    phone: Joi.string()
+    email: Joi.string()
+        .email({ tlds: { allow: ['com', 'net'] } })
         .min(3)
         .max(50)
         .required(),
