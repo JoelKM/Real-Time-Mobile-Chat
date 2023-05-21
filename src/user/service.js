@@ -10,7 +10,7 @@ module.exports = {
         if(!userInfo) throw new AppError(400, "User was not created");
         return {
             user: {
-                name: userInfo.email,
+                name: userInfo.name,
                 email: userInfo.email,
                 isAdmin: userInfo.isAdmin
             }
