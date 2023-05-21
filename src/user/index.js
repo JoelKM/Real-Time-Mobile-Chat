@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const controller = require('./controller');
+const { validateRequest } = require('../common/validate-request');
+const { userValidationSchema } = require('../schemas/user-schemas');
 
 /**
  * @swagger
@@ -55,7 +57,7 @@ const controller = require('./controller');
  *         description: Some server error
  */
 
-router.post('/register', controller.new);
+router.post('/register', validateRequest(userValidationSchema), controller.new);
 
 /**
  * @swagger

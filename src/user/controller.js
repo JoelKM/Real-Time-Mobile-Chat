@@ -29,7 +29,7 @@ module.exports = {
     getSingle: async (req, res, next) => {
         try {
             const userId = req.params.id;
-            const data = await service.retrieveUser(userId);
+            const data = await service.getUser(userId);
             respond(res, true, 200, {...data})
         } catch (error) {
             next(error);

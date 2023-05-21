@@ -4,6 +4,8 @@ const { createToken } = require("../common/token");
 
 module.exports = {
     registerUser: async (data) => {
+        if(await User.findOne({email: data.email})) throw new AppError(400, "User already exists");
+
         const userInfo = await User.create({ ...data });
         if(!userInfo) throw new AppError(400, "User was not created");
         return {
