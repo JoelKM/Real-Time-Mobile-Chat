@@ -1,38 +1,29 @@
 const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
-    phone: String,
-    password: String
+    name: { type: "String", required: true },
+    email: { type: "String", unique: true, required: true },
+    password: { type: "String", required: true },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false,
+      }
+    },
+    { timestaps: true }
+);
+
+userSchema.methods.matchPassword = async (storedPassword) => {
+    return await bcrypt.compare(storedPassword, this.password);
+};
+  
+userSchema.pre("save", async (next) => {
+    if (!this.isModified) {
+        next();
+    }
+
+    this.password = await bcrypt.hash(password, 10);
 });
 
-const db = mongoose.model('user', usersSchema);
 
-
-
-module.exports = {
-    fetchUserBy: async (field, value) => {
-        let user
-        switch (field) {
-            case 'phone':
-                user = await db.findOne({phone: value});
-                if(user == null) return false;
-                break;
-            case 'id':
-                user = await db.findOne({_id: value});
-                if(user == null) return false;
-                break;
-            default:
-                user = false;
-                break;
-        }
-        return user;
-    },
-    newUser: async (data) => {
-        return await db.create({
-            ...data
-        });
-    },
-    update: async (userId, data) => {
-        return await db.findByIdAndUpdate(userId, {...data}, {returnDocument:'after'})
-    }
-}
+module.exports = mongoose.model('user', usersSchema);
