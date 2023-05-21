@@ -1,6 +1,5 @@
 const AppError = require("../common/app-error");
-const { newUser, fetchUserBy, update } = require("./model");
-const { encryptPassword, checkPassword } = require('./helpers/encrypt');
+const User = require("./model");
 const { createToken } = require("../common/token");
 
 module.exports = {
@@ -11,13 +10,15 @@ module.exports = {
         if(!userInfo) throw new AppError(400, "User was not created");
         return {userInfo}
     },
-    loginUser: async (credentials) => {
-        const user = await fetchUserBy("email", credentials.email);
-        if(!await checkPassword(credentials.password, user.password)) {
-            throw new AppError(403, "Incorrect password")
+    authUser: async (credentials) => {
+        const email = credentials.email;
+        
+        const user = await User.findOne({ email });
+        if(user && await user.matchesPassword(credentials.password)) {
+            throw new AppError(403, "Invalid email or password")
         }
 
-        credentials = await update(user.id, {loginTimestamp: Date.now()})
+        credentials = await User.findOneAndUpdate({ user.email }, {loginTimestamp: Date.now()})
         if(user == credentials) {
             throw new AppError(400, "Unexpected login error, please try again")
         }

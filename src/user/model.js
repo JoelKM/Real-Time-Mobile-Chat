@@ -13,9 +13,11 @@ const usersSchema = new mongoose.Schema({
     { timestaps: true }
 );
 
-userSchema.methods.matchPassword = async (storedPassword) => {
+userSchema.methods.matchesPassword = async (storedPassword) => {
     return await bcrypt.compare(storedPassword, this.password);
 };
+
+
   
 userSchema.pre("save", async (next) => {
     if (!this.isModified) {
@@ -25,5 +27,6 @@ userSchema.pre("save", async (next) => {
     this.password = await bcrypt.hash(password, 10);
 });
 
+const User = mongoose.model('user', usersSchema);
 
-module.exports = mongoose.model('user', usersSchema);
+module.exports = User;
