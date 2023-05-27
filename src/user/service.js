@@ -18,10 +18,10 @@ module.exports = {
     },
     authUser: async (credentials) => {
         const user = await User.findOne({ email: credentials.email });
-        /*
-        if(!user || !await user.matchesPassword(user.password)) {
+        
+        if(!user || !await user.matchesPassword(credentials.password)) {
             throw new AppError(403, "Invalid email or password")
-        }*/
+        }
 
         const userInfo = await User.findOneAndUpdate({ email: user.email }, {loginTimestamp: Date.now()}, {returnDocument: 'after'})
         if(user == userInfo) {
