@@ -2,12 +2,16 @@ const router = require('express').Router();
 
 const controller = require('./controller');
 
-router.get('/', controller.get);
+router.get('/', controller.getChats);
 
-router.get('/:id', controller.connect);
+router.post('/', controller.searchChat, controller.openChat)
 
-router.post('/', controller.new);
+router.post('/group', controller.groupCreate)
 
-router.put('/:id', controller.message)
+router.put('/edit', controller.groupEdit);
+
+router.put('/add', controller.groupAdd);
+
+router.put('/:id', controller.groupRemove);
 
 module.exports = router;
