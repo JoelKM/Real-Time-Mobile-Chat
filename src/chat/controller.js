@@ -15,7 +15,7 @@ module.exports = {
     searchChat: async (req, res, next) => {
         try {
             req.members = [req.user._id, req.body.userId];
-            const chat = service.accessChat(req.members);
+            const chat = await service.accessChat(req.members);
 
             if (chat.length>0) {
                 respond(res, true, 200, ...chat[0])

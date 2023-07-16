@@ -10,8 +10,8 @@ router.post('/group', controller.groupCreate)
 
 router.put('/edit', controller.groupEdit);
 
-router.put('/add', controller.groupAdd);
+router.put('/add/:id', controller.groupAdd);
 
-router.put('/:id', controller.groupRemove);
+router.put('/remove/:id', controller.groupRemove);
 
 module.exports = router;
