@@ -32,13 +32,15 @@ module.exports = {
 
             respond(res, true, 201, ...chat);
         } catch (error) {
-            next(error)
+            next(error);
         }
     },
     groupCreate: async (req, res, next) => {
         try {
-            const {name, users} = req.body;
-            const chat = await service.create(users, name);
+            const { name } = req.body;
+            let { users } = req.body;
+            users.push(req.user._id);
+            const chat = await service.createChat(users, name, true);
 
             respond(res, true, 201, ...chat);
         } catch (error) {
@@ -47,18 +49,18 @@ module.exports = {
     },
     groupEdit: async (req, res, next) => {
         try {
-            const {name} = req.body;
-            const results = service.update(name);
+            const {groupId, name} = req.body;
+            const results = service.update(groupId, name);
 
-            respond(res, true, 200, ...results)
+            respond(res, true, 200, ...results);
         } catch (error) {
             next(error);
         }
     },
     groupAdd: async (req, res, next) => {
         try {
-            const { memberId } = req.body;
-            const member = service.manageMember("add", memberId);
+            const { groupId, memberId } = req.body;
+            const member = service.manageMember(groupId, memberId, "add");
 
             respond(res, true, 200, ...member)
         } catch (error) {
@@ -67,8 +69,8 @@ module.exports = {
     },
     groupRemove: async (req, res, next) => {
         try {
-            const { memberId } = req.body;
-            const member = service.manageMember("remove", memberId);
+            const { groupId, memberId } = req.body;
+            const member = service.manageMember(groupId, memberId, "remove");
             
             respond(res, true, 200, ...member)
         } catch (error) {
